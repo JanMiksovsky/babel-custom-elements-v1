@@ -1,0 +1,12 @@
+{
+  "browser": true,
+  "curly": true,
+  "eqnull": true,
+  "esnext": true,
+  "globals": {
+    "customElements": false
+  },
+  "undef": true,
+  "unused": "vars",
+  "varstmt": true
+}
