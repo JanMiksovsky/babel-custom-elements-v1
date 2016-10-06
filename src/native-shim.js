@@ -13,9 +13,6 @@
  * implementations of Custom Elements v1. It sets new.target to the value of
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
- *
- * Because `new.target` is a syntax error in VMs that don't support it, this
- * shim must only be loaded in browsers that do.
  */
 
 let originalHTMLElement = HTMLElement;
