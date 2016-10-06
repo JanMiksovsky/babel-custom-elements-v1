@@ -1,0 +1,7 @@
+{
+  "name": "polyfill-test",
+  "version": "0.0.1",
+  "dependencies": {
+    "webcomponents.js": "webcomponents/webcomponentsjs#v1"
+  }
+}
