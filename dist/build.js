@@ -19,34 +19,16 @@
  * Because `new.target` is a syntax error in VMs that don't support it, this
  * shim must only be loaded in browsers that do.
  */
-
-var originalHTMLElement = HTMLElement;
-
-// Prefer new.target for elements that call super() constructors or
-// Reflect.construct directly.
-var script = "\n  let newTarget = new.target || this.constructor;\n  return Reflect.construct(originalHTMLElement, [], newTarget);\n";
-var patchedHTMLElement = void 0;
-try {
-  patchedHTMLElement = Function(script); // jshint ignore:line
-} catch (e) {
-  if (!(e instanceof SyntaxError)) {
-    throw e;
-  }
-  // Older browser that doesn't support new.target.
-  // No need to shim -- we won't have native Custom Elements or super anyway.
-}
-
-if (patchedHTMLElement) {
+(function () {
+  var origHTMLElement = HTMLElement;
   // TODO(justinfagnani): Tests!!
-  window.HTMLElement = patchedHTMLElement;
-  HTMLElement.prototype = Object.create(originalHTMLElement.prototype, {
-    constructor: {
-      value: HTMLElement,
-      configurable: true,
-      writable: true
-    }
+  window.HTMLElement = function () {
+    return Reflect.construct(origHTMLElement, [], this.constructor);
+  };
+  HTMLElement.prototype = Object.create(origHTMLElement.prototype, {
+    constructor: { value: HTMLElement, configurable: true, writable: true }
   });
-}
+})();
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
